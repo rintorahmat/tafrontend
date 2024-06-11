@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Analisis Sentimen Feedback Pengguna Capcut Dengan Support Vector Machine (SVM): Evaluasi Pengalaman Pengguna dan Daya Tarik Aplikasi Capcut</h1>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showImportData()">Import Data</a></li>
+                <li><a href="#" onclick="showPreprocessing()">Preprocessing</a></li>
+                <li><a href="#" onclick="showTrainingData()">Training Data</a></li>
+                <li><a href="#" onclick="showTestingData()">Testing Data</a></li>
+                <li><a href="#" onclick="showVisualisasiData()">Visualisasi Data</a></li>
+            </ul>
+        </nav>
+
+        <main id="content">
+            <div id="importDataContent" style="display: none;">
+                <button onclick="triggerFileInput()" class="upload-button">
+                    <span class="iconify" data-icon="feather:upload-cloud" data-inline="false"></span> Upload Dataset 
+                </button>
+                
+                <input type="file" id="importDataInput"  style="display: none;" onchange="handleFileUpload(event)">
+                
+                <div id="uploadedFileName"></div>
+                
+                <label for="dataAmountSelect">Jumlah baris data yang ingin ditampilkan:</label>
+                <select id="dataAmountSelect" onchange="updateDataDisplay()">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+
+                <div style="overflow-x: auto;">
+                    <table id="fileDataTable">
+                    </table>
+                </div>
+            </div>
+
+            <div id="preprocessingContent" style="display: none;">
+                <div class="split-data-container">
+                    <label for="splitRatio">Pilih Rasio Pembagian Data:</label>
+                    <select id="splitRatio">
+                        <option value="0.2">80:20</option>
+                        <option value="0.1">90:10</option>
+                        <option value="0.3">70:30</option>
+                        <option value="0.4">60:40</option>
+                    </select>
+                </div>
+                <div class="button-container">
+                    <button onclick="startPreprocessing()">
+                        <span class="iconify" data-icon="feather:play" data-inline="false"></span> Mulai Preprocessing</button>
+                    <button onclick="splitData()">
+                        <span class="iconify" data-icon="feather:scissors" data-inline="false"></span> Split Data</button>
+                    <button onclick="downloadData()">
+                        <span class="iconify" data-icon="feather:download-cloud" data-inline="false"></span> Unduh Data</button>
+                </div>
+                <table class="datapre"></table>
+            </div>         
+
+            <div id="trainingDataContent" style="display: none;">
+                <h2>Data Training</h2>
+                <button onclick="startklasification()">Mulai Klasifikasi SVM</button>
+                <table class="datatraining"></table>
+            </div>
+            
+            <div id="testingDataContent" style="display: none;">
+                <h2>Data Testing</h2>
+                <table class="datatesting"></table>
+            </div>
+            
+            <div id="visualisasiDataContent" style="display: none;">
+                <h2>Visualisasi Data</h2>
+                <p id="accuracyResult">Hasil Accuracy Klasifikasi SVM : </p>
+                <div class="grid-container">
+                    <div class="grid-item">
+                        <h3 class="box-title">Metrik Evaluasi</h3>
+                        <div id="reportBox"></div>
+                    </div>
+                    <div class="grid-item">
+                        <h3 class="box-title">Visualisasi Sentimen</h3>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="grid-item">
+                        <h3 class="box-title">Grafik Nilai Metrik Evaluasi</h3>
+                        <canvas id="chartsentimen"></canvas>
+                    </div>
+                    <div class="grid-item">
+                        <h3 class="box-title">Wordcloud</h3>
+                        <img src="" id="wordcloud" alt="gambarwordcloud">
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

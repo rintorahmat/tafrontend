@@ -1,0 +1,132 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+.container {
+    display: flex;
+    height: 100%;
+}
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+nav {
+    background-color: #f4f4f4;
+    padding: 20px;
+    width: 200px; /* Lebar menu */
+    height: 100%;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #333;
+}
+main {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Scroll vertikal jika dibutuhkan */
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%; /* Lebar tabel 100% area utama */
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+#importDataContent > * {
+    margin-bottom: 10px;
+}
+button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-family: 'Arial', sans-serif; /* Set font-family */
+    font-weight: bold;
+}
+
+.iconify {
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+}
+.button-container button {
+    display: inline-block;
+    margin-right: 10px;
+}
+.button-container button, #preprocessingContent select {
+    margin-bottom: 10px; /* Menambahkan jarak bawah antara tombol dan select */
+}
+.input-container {
+    margin: 10px 0;
+}
+.input-container label, .input-container input {
+    margin-right: 10px;
+}
+#preprocessingContent {
+    display: none;
+}
+.button-container {
+    margin-top: 20px;
+}
+.split-container {
+    margin-bottom: 20px;
+}
+#preprocessingContent .datapre {
+    margin-top: 10px; /* Menambahkan jarak atas antara select dan tabel */
+}
+#trainingDataContent .datatraining {
+    margin-top: 10px; /* Menambahkan jarak atas antara select dan tabel */
+}
+#testingDataContent .datatesting {
+    margin-top: 10px; /* Menambahkan jarak atas antara select dan tabel */
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 20px; /* Jarak antar kotak */
+}
+
+.grid-item {
+    border: 1px solid #000;
+    padding: 10px;
+    position: relative;
+}
+.box-title {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+.grid-item {
+    padding: 30px;
+    border: 1px solid #ddd;
+}
