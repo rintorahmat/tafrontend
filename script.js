@@ -405,10 +405,10 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `https://34.67.12.101:8000/download_preprocessed/${processedFileId}`;
+    link.href = `http://34.67.12.101:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("https://34.67.12.101:8000")
+fetch("http://34.67.12.101:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
