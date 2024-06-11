@@ -42,7 +42,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://0.0.0.0:8000/upload', {
+    fetch('http://34.67.12.101:8000/upload', {
         method: 'POST',
         body: formData,
     })
