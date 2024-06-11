@@ -409,6 +409,6 @@ function downloadData() {
     link.click();
 }
 
-fetch("http://34.67.12.101:8000")
+fetch("https://tafrontend.vercel.app/")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
