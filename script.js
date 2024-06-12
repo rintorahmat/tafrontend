@@ -34,23 +34,24 @@ function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
 
-document.getElementById('uploadButton').addEventListener('click', async () => {
-    const input = document.getElementById('fileInput');
-    const file = input.files[0];
-
-    if (file) {
-        const formData = new FormData();
-        formData.append('file', file);
-
-        try {
-            const response = await fetch('http://34.44.182.187:8000/upload', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                const result = await response.json();
-                console.log('Success:', result);
+// Fungsi untuk menangani file yang diunggah
+function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) {
+        alert('Silakan pilih file yang ingin diunggah.');
+        return;
+    }
+    const formData = new FormData();
+    formData.append('file', file);
+    fetch('http://34.44.182.187:8000/upload', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error uploading file: ' + data.error);
+            } else {
                 document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
                 console.log('Success:', data);
                 document.querySelector('.datapre').innerHTML=''
@@ -66,16 +67,13 @@ document.getElementById('uploadButton').addEventListener('click', async () => {
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
                 }
-            } else {
-                console.error('Error:', response.statusText);
-                alert('Error uploading file');
             }
-        } catch (error) {
+        })
+        .catch((error) => {
             console.error('Error:', error);
             alert('Error uploading file');
-        }
-    }
-});
+        });
+}
 
 function readAndDisplayFile(file) {
     const reader = new FileReader();
