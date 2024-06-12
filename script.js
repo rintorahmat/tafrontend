@@ -167,12 +167,14 @@ function updateDataDisplay() {
     });
 }
 
+const BACKEND_URL = "http://34.44.182.187:8000";
+
 document.addEventListener('DOMContentLoaded', function () {
     hideAllContent();
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://127.0.0.1:8000/process/${fileId}`, {
+    fetch(`${BACKEND_URL}/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -247,7 +249,7 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://127.0.0.1:8000/splitdata/${fileId}`, {
+    fetch(`${BACKEND_URL}/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -303,7 +305,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://127.0.0.1:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`${BACKEND_URL}/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -405,10 +407,10 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `http://127.0.0.1:8000/download_preprocessed/${processedFileId}`;
+    link.href = `${BACKEND_URL}/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("http://127.0.0.1:8000")
+fetch("${BACKEND_URL}")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
