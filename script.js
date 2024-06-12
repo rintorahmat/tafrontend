@@ -59,7 +59,7 @@ async function handleFileUpload(event) {
     formData.append('file', file);
     try {
         const response = await fetch('http://34.44.182.187:8000/upload', {
-            method: 'POST',
+            method: 'POST', // Menggunakan metode POST
             body: formData,
         });
         if (response.ok) {
