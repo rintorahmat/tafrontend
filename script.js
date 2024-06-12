@@ -33,6 +33,7 @@ function showVisualisasiData() {
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
+const BACKEND_URL = "http://34.44.182.187:8000";
 // Fungsi untuk menangani file yang diunggah
 function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -42,7 +43,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://127.0.0.1:8000/upload', {
+    fetch('${BACKEND_URL}/upload', {
         method: 'POST',
         body: formData,
     })
@@ -166,8 +167,6 @@ function updateDataDisplay() {
         }
     });
 }
-
-const BACKEND_URL = "http://34.44.182.187:8000";
 
 document.addEventListener('DOMContentLoaded', function () {
     hideAllContent();
