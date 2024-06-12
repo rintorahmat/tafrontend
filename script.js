@@ -4,100 +4,67 @@ function hideAllContent() {
         content.style.display = 'none';
     });
 }
-
-// Fungsi untuk menampilkan pesan kesalahan
-function displayErrorMessage(message) {
-    const errorMessageElement = document.createElement('div');
-    errorMessageElement.textContent = message;
-    errorMessageElement.classList.add('error-message');
-    document.body.appendChild(errorMessageElement);
-}
-
-// Fungsi untuk menampilkan konten Import Data
 function showImportData() {
     hideAllContent();
     document.getElementById('importDataContent').style.display = 'block';
 }
-
-// Fungsi untuk menampilkan konten Preprocessing
 function showPreprocessing() {
     hideAllContent();
     document.getElementById('preprocessingContent').style.display = 'block';
 }
-
-// Fungsi untuk menampilkan konten Training Data
 function showTrainingData() {
     hideAllContent();
     document.getElementById('trainingDataContent').style.display = 'block';
 }
-
-// Fungsi untuk menampilkan konten Testing Data
 function showTestingData() {
     hideAllContent();
     document.getElementById('testingDataContent').style.display = 'block';
 }
-
-// Fungsi untuk menampilkan konten Visualisasi Data
 function showVisualisasiData() {
     hideAllContent();
     document.getElementById('visualisasiDataContent').style.display = 'block';
 }
-
-// Fungsi untuk memicu dialog file explorer saat tombol "Upload Data" diklik
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
-
-// Fungsi untuk menangani file yang diunggah
-async function handleFileUpload(event) {
+function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
-        displayErrorMessage('Silakan pilih file yang ingin diunggah.');
+        alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
     const formData = new FormData();
     formData.append('file', file);
-    try {
-        const response = await fetch('http://34.44.182.187:8000/upload', {
-            method: 'POST', // Menggunakan metode POST
-            body: formData,
-        });
-        if (response.ok) {
-            const data = await response.json();
+    fetch('http://34.44.182.187:8000/upload', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
             if (data.error) {
-                throw new Error('Error uploading file: ' + data.error);
+                alert('Error uploading file: ' + data.error);
             } else {
                 document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
                 console.log('Success:', data);
-                // Reset konten yang ada
-                resetContent();
-                localStorage.setItem('FILE_ID', data.id);
-                // Tampilkan konten berdasarkan jenis file
+                document.querySelector('.datapre').innerHTML=''
+                document.querySelector('.datatraining').innerHTML=''
+                document.querySelector('.datatesting').innerHTML=''
+                document.querySelector('#accuracyResult').innerHTML=''
+                document.querySelector('#reportBox').innerHTML=''
+                document.querySelector('#myChart').innerHTML=''
+                document.querySelector('#chartsentimen').innerHTML=''
+                document.querySelector('#wordcloud').innerHTML=''
+                localStorage.setItem('FILE_ID', data.id)
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
                 }
             }
-        } else {
-            throw new Error('Server responded with status: ' + response.status);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        // Tampilkan pesan kesalahan kepada pengguna
-        displayErrorMessage(error.message);
-    }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error uploading file');
+        });
 }
-
-function resetContent() {
-    document.querySelector('.datapre').innerHTML = '';
-    document.querySelector('.datatraining').innerHTML = '';
-    document.querySelector('.datatesting').innerHTML = '';
-    document.querySelector('#accuracyResult').innerHTML = '';
-    document.querySelector('#reportBox').innerHTML = '';
-    document.querySelector('#myChart').innerHTML = '';
-    document.querySelector('#chartsentimen').innerHTML = '';
-    document.querySelector('#wordcloud').innerHTML = '';
-}
-
 function readAndDisplayFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -106,7 +73,6 @@ function readAndDisplayFile(file) {
     };
     reader.readAsText(file);
 }
-// Fungsi untuk memisahkan data dengan benar berdasarkan tanda kutip ganda
 function parseCSVLine(line, separator) {
     const result = [];
     let currentField = '';
@@ -130,7 +96,6 @@ function parseCSVLine(line, separator) {
     return result;
 }
 
-// Fungsi untuk menampilkan data dalam tabel
 function displayDataInTable(fileContent) {
     const rows = fileContent.split('\n');
     const separators = [',', ';', '\t'];
@@ -282,7 +247,6 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        // Menampilkan data latih
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
             <tr>
@@ -298,8 +262,6 @@ function splitData() {
                 </tr>
             `;
         }
-
-        // Menampilkan data uji
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -315,7 +277,7 @@ function splitData() {
                 </tr>
             `;
         }
-        showTrainingData();  // Menampilkan konten Training Data setelah preprocessing selesai
+        showTrainingData();
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -347,7 +309,6 @@ function startklasification() {
         let recall = data.recall_macro;
         let f1_score = data.f1_macro;
 
-        // Hancurkan grafik sebelumnya jika sudah ada
         const existingChart = Chart.getChart("myChart");
         if (existingChart) {
             existingChart.destroy();
@@ -414,7 +375,6 @@ function startklasification() {
         reportHtml += '</tbody></table>';
         document.getElementById('reportBox').innerHTML = reportHtml;
 
-        // Display the content
         document.getElementById('visualisasiDataContent').style.display = 'block';
     })
     .catch(error => {
