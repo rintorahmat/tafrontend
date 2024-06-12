@@ -4,75 +4,98 @@ function hideAllContent() {
         content.style.display = 'none';
     });
 }
+
+// Fungsi untuk menampilkan pesan kesalahan
+function displayErrorMessage(message) {
+    const errorMessageElement = document.createElement('div');
+    errorMessageElement.textContent = message;
+    errorMessageElement.classList.add('error-message');
+    document.body.appendChild(errorMessageElement);
+}
+
 // Fungsi untuk menampilkan konten Import Data
 function showImportData() {
     hideAllContent();
     document.getElementById('importDataContent').style.display = 'block';
 }
+
 // Fungsi untuk menampilkan konten Preprocessing
 function showPreprocessing() {
     hideAllContent();
     document.getElementById('preprocessingContent').style.display = 'block';
 }
+
 // Fungsi untuk menampilkan konten Training Data
 function showTrainingData() {
     hideAllContent();
     document.getElementById('trainingDataContent').style.display = 'block';
 }
+
 // Fungsi untuk menampilkan konten Testing Data
 function showTestingData() {
     hideAllContent();
     document.getElementById('testingDataContent').style.display = 'block';
 }
+
 // Fungsi untuk menampilkan konten Visualisasi Data
 function showVisualisasiData() {
     hideAllContent();
     document.getElementById('visualisasiDataContent').style.display = 'block';
 }
+
 // Fungsi untuk memicu dialog file explorer saat tombol "Upload Data" diklik
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
 
 // Fungsi untuk menangani file yang diunggah
-function handleFileUpload(event) {
+async function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
-        alert('Silakan pilih file yang ingin diunggah.');
+        displayErrorMessage('Silakan pilih file yang ingin diunggah.');
         return;
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://34.44.182.187:8000/upload', {
-        method: 'POST',
-        body: formData,
-    })
-        .then(response => response.json())
-        .then(data => {
+    try {
+        const response = await fetch('http://34.44.182.187:8000/upload', {
+            method: 'POST',
+            body: formData,
+        });
+        if (response.ok) {
+            const data = await response.json();
             if (data.error) {
-                alert('Error uploading file: ' + data.error);
+                throw new Error('Error uploading file: ' + data.error);
             } else {
                 document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
                 console.log('Success:', data);
-                document.querySelector('.datapre').innerHTML=''
-                document.querySelector('.datatraining').innerHTML=''
-                document.querySelector('.datatesting').innerHTML=''
-                document.querySelector('#accuracyResult').innerHTML=''
-                document.querySelector('#reportBox').innerHTML=''
-                document.querySelector('#myChart').innerHTML=''
-                document.querySelector('#chartsentimen').innerHTML=''
-                document.querySelector('#wordcloud').innerHTML=''
-                localStorage.setItem('FILE_ID', data.id)
-                // Optionally display the file content in a table
+                // Reset konten yang ada
+                resetContent();
+                localStorage.setItem('FILE_ID', data.id);
+                // Tampilkan konten berdasarkan jenis file
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
                 }
             }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Error uploading file');
-        });
+        } else {
+            throw new Error('Server responded with status: ' + response.status);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        // Tampilkan pesan kesalahan kepada pengguna
+        displayErrorMessage(error.message);
+    }
+}
+
+function resetContent() {
+    document.querySelector('.datapre').innerHTML = '';
+    document.querySelector('.datatraining').innerHTML = '';
+    document.querySelector('.datatesting').innerHTML = '';
+    document.querySelector('#accuracyResult').innerHTML = '';
+    document.querySelector('#reportBox').innerHTML = '';
+    document.querySelector('#myChart').innerHTML = '';
+    document.querySelector('#chartsentimen').innerHTML = '';
+    document.querySelector('#wordcloud').innerHTML = '';
 }
 
 function readAndDisplayFile(file) {
