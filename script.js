@@ -33,7 +33,7 @@ function showVisualisasiData() {
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
-const BACKEND_URL = "http://34.44.182.187:8000";
+// const BACKEND_URL = "http://34.44.182.187:8000";
 // Fungsi untuk menangani file yang diunggah
 function handleFileUpload(event) {
     const file = event.target.files[0];
@@ -43,7 +43,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('${BACKEND_URL}/upload', {
+    fetch('http://34.44.182.187:8000/upload', {
         method: 'POST',
         body: formData,
     })
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`${BACKEND_URL}/process/${fileId}`, {
+    fetch(`http://34.44.182.187:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -248,7 +248,7 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`${BACKEND_URL}/splitdata/${fileId}`, {
+    fetch(`http://34.44.182.187:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -304,7 +304,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`${BACKEND_URL}/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://34.44.182.187:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -406,10 +406,10 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `${BACKEND_URL}/download_preprocessed/${processedFileId}`;
+    link.href = `http://34.44.182.187:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("${BACKEND_URL}")
+fetch("http://34.44.182.187:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
