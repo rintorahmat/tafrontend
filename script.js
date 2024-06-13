@@ -411,7 +411,6 @@ function downloadData() {
     link.click();
 }
 
-// Fetch server status or initial data
 fetch("http://34.122.199.243:8000")
     .then(response => {
         if (!response.ok) {
@@ -424,4 +423,6 @@ fetch("http://34.122.199.243:8000")
     })
     .catch(error => {
         console.error('Error fetching server data:', error);
+        alert('Terjadi kesalahan saat mengambil data dari server.');
     });
+
