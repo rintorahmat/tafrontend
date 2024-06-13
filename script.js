@@ -1,32 +1,43 @@
+document.addEventListener('DOMContentLoaded', function () {
+    hideAllContent();
+});
+
 function hideAllContent() {
     const contents = document.querySelectorAll('#content > div');
     contents.forEach(content => {
         content.style.display = 'none';
     });
 }
+
 function showImportData() {
     hideAllContent();
     document.getElementById('importDataContent').style.display = 'block';
 }
+
 function showPreprocessing() {
     hideAllContent();
     document.getElementById('preprocessingContent').style.display = 'block';
 }
+
 function showTrainingData() {
     hideAllContent();
     document.getElementById('trainingDataContent').style.display = 'block';
 }
+
 function showTestingData() {
     hideAllContent();
     document.getElementById('testingDataContent').style.display = 'block';
 }
+
 function showVisualisasiData() {
     hideAllContent();
     document.getElementById('visualisasiDataContent').style.display = 'block';
 }
+
 function triggerFileInput() {
-    const uploadbutton = document.getElementById('importDataInput').click();
+    document.getElementById('importDataInput').click();
 }
+
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
@@ -41,7 +52,12 @@ function handleFileUpload(event) {
         method: 'POST',
         body: formData,
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(text => { throw new Error(text); });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.error) {
             alert('Error uploading file: ' + data.error);
@@ -49,14 +65,7 @@ function handleFileUpload(event) {
             document.getElementById('uploadedFileName').innerText = `File yang diupload: ${file.name}`;
             console.log('Success:', data);
             // Hapus konten dari elemen-elemen yang perlu dikosongkan
-            document.querySelector('.datapre').innerHTML = '';
-            document.querySelector('.datatraining').innerHTML = '';
-            document.querySelector('.datatesting').innerHTML = '';
-            document.querySelector('#accuracyResult').innerHTML = '';
-            document.querySelector('#reportBox').innerHTML = '';
-            document.querySelector('#myChart').innerHTML = '';
-            document.querySelector('#chartsentimen').innerHTML = '';
-            document.querySelector('#wordcloud').innerHTML = '';
+            clearContent();
             // Simpan ID file ke dalam localStorage
             localStorage.setItem('FILE_ID', data.id);
             // Jika tipe file adalah text/csv, panggil fungsi untuk membaca dan menampilkan file
@@ -67,8 +76,19 @@ function handleFileUpload(event) {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Error uploading file');
+        alert('Error uploading file: ' + error.message);
     });
+}
+
+function clearContent() {
+    document.querySelector('.datapre').innerHTML = '';
+    document.querySelector('.datatraining').innerHTML = '';
+    document.querySelector('.datatesting').innerHTML = '';
+    document.querySelector('#accuracyResult').innerHTML = '';
+    document.querySelector('#reportBox').innerHTML = '';
+    document.querySelector('#myChart').innerHTML = '';
+    document.querySelector('#chartsentimen').innerHTML = '';
+    document.querySelector('#wordcloud').innerHTML = '';
 }
 
 function readAndDisplayFile(file) {
@@ -79,6 +99,7 @@ function readAndDisplayFile(file) {
     };
     reader.readAsText(file);
 }
+
 function parseCSVLine(line, separator) {
     const result = [];
     let currentField = '';
@@ -86,7 +107,6 @@ function parseCSVLine(line, separator) {
 
     for (let i = 0; i < line.length; i++) {
         const char = line[i];
-
         if (char === '"') {
             inQuotes = !inQuotes;
         } else if (char === separator && !inQuotes) {
@@ -163,9 +183,6 @@ function updateDataDisplay() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    hideAllContent();
-});
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://34.122.199.243:8000/process/${fileId}`, {
@@ -191,22 +208,22 @@ function startPreprocessing() {
             </tr>
         `;
         if (data["data"]) {
-            for (let index = 0; index < data["data"].length; index++) {
+            data["data"].forEach(row => {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Spacing"]}</td>
-                        <td>${data["data"][index]["HapusEmoticon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
-                        <td>${data["data"][index]["LowerCasing"]}</td>
-                        <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
-                        <td>${data["data"][index]["StopWord"]}</td>
-                        <td>${data["data"][index]["Sentiment_Label"]}</td>
-                        <td>${data["data"][index]["Polarity"]}</td>
+                        <td>${row["content"]}</td>
+                        <td>${row["Spacing"]}</td>
+                        <td>${row["HapusEmoticon"]}</td>
+                        <td>${row["HapusTandaBaca"]}</td>
+                        <td>${row["LowerCasing"]}</td>
+                        <td>${row["Tokenizing"]}</td>
+                        <td>${row["Lemmatized"]}</td>
+                        <td>${row["StopWord"]}</td>
+                        <td>${row["Sentiment_Label"]}</td>
+                        <td>${row["Polarity"]}</td>
                     </tr>
                 `;
-            }
+            });
         } else {
             console.error('Data is empty or undefined');
         }
@@ -231,10 +248,9 @@ function startPreprocessing() {
             }
         });
         const wordcloud = document.getElementById('wordcloud');
-        console.log(data['wordcloud_base64']);
         wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
         alert('Error');
     });
@@ -260,14 +276,15 @@ function splitData() {
                 <th>Sentiment_Label</th>
             </tr>
         `;
-        for (let index = 0; index < data['train_data'].length; index++) {
+        data['train_data'].forEach(row => {
             datatraining.innerHTML += `
                 <tr>
-                    <td>${data['train_data'][index]['StopWord']}</td>
-                    <td>${data['train_data'][index]['Sentiment_Label']}</td>
+                    <td>${row['StopWord']}</td>
+                    <td>${row['Sentiment_Label']}</td>
                 </tr>
             `;
-        }
+        });
+
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -275,25 +292,26 @@ function splitData() {
                 <th>Sentiment_Label</th>
             </tr>
         `;
-        for (let index = 0; index < data['test_data'].length; index++) {
+        data['test_data'].forEach(row => {
             datatesting.innerHTML += `
                 <tr>
-                    <td>${data['test_data'][index]['StopWord']}</td>
-                    <td>${data['test_data'][index]['Sentiment_Label']}</td>
+                    <td>${row['StopWord']}</td>
+                    <td>${row['Sentiment_Label']}</td>
                 </tr>
             `;
-        }
+        });
+
         showTrainingData();
     })
-    .catch((error) => {
+    .catch(error => {
         console.error('Error:', error);
         alert('Error');
     });
 }
+
 function startklasification() {
     const hasilpreId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById('splitRatio').value;
-
     const testSize = parseFloat(splitRatio);
 
     fetch(`http://34.122.199.243:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
@@ -310,10 +328,7 @@ function startklasification() {
 
         console.log(data);
 
-        let accuracy = data.accuracy;
-        let precision = data.precision_macro;
-        let recall = data.recall_macro;
-        let f1_score = data.f1_macro;
+        const { accuracy, precision_macro: precision, recall_macro: recall, f1_macro: f1_score } = data;
 
         const existingChart = Chart.getChart("myChart");
         if (existingChart) {
@@ -400,7 +415,12 @@ function downloadData() {
     link.click();
 }
 
+// Fetch server status or initial data
 fetch("http://34.122.199.243:8000")
-    .then((respon) => respon.json())
-    .then((data) => { 
-        console.log(data)})
+    .then(response => response.json())
+    .then(data => { 
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error fetching server data:', error);
+    });
