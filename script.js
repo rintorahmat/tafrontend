@@ -34,8 +34,8 @@ async function handleFileUpload(event) {
         return;
     }
     const formData = new FormData();
-    formData.append('file', fileInput.files[0]);
-    // formData.append('file', file);
+    // formData.append('file', fileInput.files[0]);
+    formData.append('file', file);
     try {
         const response = await fetch('http://34.135.129.204:8000/upload', {
             method: 'POST',
