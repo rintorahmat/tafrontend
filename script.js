@@ -411,11 +411,11 @@ function downloadData() {
     link.click();
 }
 
-fetch("http://34.122.199.243:8000/")
-    .then(response => response.json())
-    .then(data => { 
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error fetching server data:', error);
-    });
+// fetch("http://34.122.199.243:8000/")
+//     .then(response => response.json())
+//     .then(data => { 
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.error('Error fetching server data:', error);
+//     });
