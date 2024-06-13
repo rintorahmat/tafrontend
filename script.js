@@ -397,4 +397,6 @@ function downloadData() {
 
 fetch("http://34.122.199.243:8000")
     .then((respon) => respon.json())
-    .then((data) => { console.log(data) })
+    .then((data) => { 
+        console.log(data);
+    })
