@@ -33,53 +33,37 @@ function handleFileUpload(event) {
         alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
+    const formData = new FormData();
+    formData.append('file', file);
     fetch('http://34.122.199.243:8000/upload', {
-    method: 'POST',
-    body: formData,
+        method: 'POST',
+        body: formData,
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    // const formData = new FormData();
-    // formData.append('file', file);
-    // fetch('http://34.122.199.243:8000/upload', {
-    //     method: 'POST',
-    //     body: formData,
-    // })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.error) {
-    //             alert('Error uploading file: ' + data.error);
-    //         } else {
-    //             document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
-    //             console.log('Success:', data);
-    //             document.querySelector('.datapre').innerHTML=''
-    //             document.querySelector('.datatraining').innerHTML=''
-    //             document.querySelector('.datatesting').innerHTML=''
-    //             document.querySelector('#accuracyResult').innerHTML=''
-    //             document.querySelector('#reportBox').innerHTML=''
-    //             document.querySelector('#myChart').innerHTML=''
-    //             document.querySelector('#chartsentimen').innerHTML=''
-    //             document.querySelector('#wordcloud').innerHTML=''
-    //             localStorage.setItem('FILE_ID', data.id)
-    //             if (file.type === 'text/csv') {
-    //                 readAndDisplayFile(file);
-    //             }
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //         alert('Error uploading file');
-    //     });
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error uploading file: ' + data.error);
+            } else {
+                document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
+                console.log('Success:', data);
+                document.querySelector('.datapre').innerHTML=''
+                document.querySelector('.datatraining').innerHTML=''
+                document.querySelector('.datatesting').innerHTML=''
+                document.querySelector('#accuracyResult').innerHTML=''
+                document.querySelector('#reportBox').innerHTML=''
+                document.querySelector('#myChart').innerHTML=''
+                document.querySelector('#chartsentimen').innerHTML=''
+                document.querySelector('#wordcloud').innerHTML=''
+                localStorage.setItem('FILE_ID', data.id)
+                if (file.type === 'text/csv') {
+                    readAndDisplayFile(file);
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error uploading file');
+        });
 }
 
 function readAndDisplayFile(file) {
