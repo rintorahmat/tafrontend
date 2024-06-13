@@ -35,7 +35,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://34.44.182.187:8000/upload', {
+    fetch('http://34.135.129.204:8000//upload', {
         method: 'POST',
         body: formData,
     })
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.44.182.187:8000/process/${fileId}`, {
+    fetch(`http://34.135.129.204:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -237,7 +237,7 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://34.44.182.187:8000/splitdata/${fileId}`, {
+    fetch(`http://34.135.129.204:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -290,7 +290,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://34.44.182.187:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://34.135.129.204:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -390,10 +390,10 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `http://34.44.182.187:8000/download_preprocessed/${processedFileId}`;
+    link.href = `http://34.135.129.204:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("http://34.44.182.187:8000")
+fetch("http://34.135.129.204:8000/")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
