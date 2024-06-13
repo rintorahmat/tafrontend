@@ -27,41 +27,43 @@ function showVisualisasiData() {
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
-async function handleFileUpload(event) {
+function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
         alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
     const formData = new FormData();
-    // formData.append('file', fileInput.files[0]);
     formData.append('file', file);
-    try {
-        const response = await fetch('http://34.135.129.204:8000/upload', {
-            method: 'POST',
-            body: formData,
-        }); 
-        if (!response.ok) {
-            const errorData = await response.json();
-            alert('Error uploading file: ' + (errorData.detail || response.statusText));
-            return;
-        }
-        const data = await response.json();
-        document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
-        console.log('Success:', data);
-        document.querySelector('.datapre').innerHTML = '';
-        document.querySelector('.datatraining').innerHTML = '';
-        document.querySelector('.datatesting').innerHTML = '';
-        document.querySelector('#accuracyResult').innerHTML = '';
-        document.querySelector('#reportBox').innerHTML = '';
-        document.querySelector('#myChart').innerHTML = '';
-        document.querySelector('#chartsentimen').innerHTML = '';
-        document.querySelector('#wordcloud').innerHTML = '';
-        localStorage.setItem('FILE_ID', data.id);
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error uploading file');
-    }
+    fetch('http://34.122.199.243:8000/upload', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error uploading file: ' + data.error);
+            } else {
+                document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
+                console.log('Success:', data);
+                document.querySelector('.datapre').innerHTML=''
+                document.querySelector('.datatraining').innerHTML=''
+                document.querySelector('.datatesting').innerHTML=''
+                document.querySelector('#accuracyResult').innerHTML=''
+                document.querySelector('#reportBox').innerHTML=''
+                document.querySelector('#myChart').innerHTML=''
+                document.querySelector('#chartsentimen').innerHTML=''
+                document.querySelector('#wordcloud').innerHTML=''
+                localStorage.setItem('FILE_ID', data.id)
+                if (file.type === 'text/csv') {
+                    readAndDisplayFile(file);
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error uploading file');
+        });
 }
 
 function readAndDisplayFile(file) {
@@ -161,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.135.129.204:8000/process/${fileId}`, {
+    fetch(`http://34.122.199.243:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -236,7 +238,7 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://34.135.129.204:8000/splitdata/${fileId}`, {
+    fetch(`http://34.122.199.243:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -289,7 +291,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://34.135.129.204:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://34.122.199.243:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -389,10 +391,10 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `http://34.135.129.204:8000/download_preprocessed/${processedFileId}`;
+    link.href = `http://34.122.199.243:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("http://34.135.129.204:8000/")
+fetch("http://34.122.199.243:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
