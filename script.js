@@ -1,96 +1,78 @@
-document.addEventListener('DOMContentLoaded', function () {
-    hideAllContent();
-});
-
 function hideAllContent() {
     const contents = document.querySelectorAll('#content > div');
     contents.forEach(content => {
         content.style.display = 'none';
     });
 }
-
+// Fungsi untuk menampilkan konten Import Data
 function showImportData() {
     hideAllContent();
     document.getElementById('importDataContent').style.display = 'block';
 }
-
+// Fungsi untuk menampilkan konten Preprocessing
 function showPreprocessing() {
     hideAllContent();
     document.getElementById('preprocessingContent').style.display = 'block';
 }
-
+// Fungsi untuk menampilkan konten Training Data
 function showTrainingData() {
     hideAllContent();
     document.getElementById('trainingDataContent').style.display = 'block';
 }
-
+// Fungsi untuk menampilkan konten Testing Data
 function showTestingData() {
     hideAllContent();
     document.getElementById('testingDataContent').style.display = 'block';
 }
-
+// Fungsi untuk menampilkan konten Visualisasi Data
 function showVisualisasiData() {
     hideAllContent();
     document.getElementById('visualisasiDataContent').style.display = 'block';
 }
-
+// Fungsi untuk memicu dialog file explorer saat tombol "Upload Data" diklik
 function triggerFileInput() {
-    document.getElementById('importDataInput').click();
+    const uploadbutton = document.getElementById('importDataInput').click();
 }
-
+// Fungsi untuk menangani file yang diunggah
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
         alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
-    
     const formData = new FormData();
     formData.append('file', file);
-    
-    fetch('http://34.122.199.243:8000/upload', {
+    fetch('http://127.0.0.1:8000/upload', {
         method: 'POST',
         body: formData,
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.text().then(text => { throw new Error(text); });
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.error) {
-            alert('Error uploading file: ' + data.error);
-        } else {
-            document.getElementById('uploadedFileName').innerText = `File yang diupload: ${file.name}`;
-            console.log('Success:', data);
-            // Hapus konten dari elemen-elemen yang perlu dikosongkan
-            clearContent();
-            // Simpan ID file ke dalam localStorage
-            localStorage.setItem('FILE_ID', data.id);
-            // Jika tipe file adalah text/csv, panggil fungsi untuk membaca dan menampilkan file
-            if (file.type === 'text/csv') {
-                readAndDisplayFile(file);
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error uploading file: ' + data.error);
+            } else {
+                document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
+                console.log('Success:', data);
+                document.querySelector('.datapre').innerHTML=''
+                document.querySelector('.datatraining').innerHTML=''
+                document.querySelector('.datatesting').innerHTML=''
+                document.querySelector('#accuracyResult').innerHTML=''
+                document.querySelector('#reportBox').innerHTML=''
+                document.querySelector('#myChart').innerHTML=''
+                document.querySelector('#chartsentimen').innerHTML=''
+                document.querySelector('#wordcloud').innerHTML=''
+                localStorage.setItem('FILE_ID', data.id)
+                // Optionally display the file content in a table
+                if (file.type === 'text/csv') {
+                    readAndDisplayFile(file);
+                }
             }
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error uploading file: ' + error.message);
-    });
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Error uploading file');
+        });
 }
-
-function clearContent() {
-    document.querySelector('.datapre').innerHTML = '';
-    document.querySelector('.datatraining').innerHTML = '';
-    document.querySelector('.datatesting').innerHTML = '';
-    document.querySelector('#accuracyResult').innerHTML = '';
-    document.querySelector('#reportBox').innerHTML = '';
-    document.querySelector('#myChart').innerHTML = '';
-    document.querySelector('#chartsentimen').innerHTML = '';
-    document.querySelector('#wordcloud').innerHTML = '';
-}
-
 function readAndDisplayFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
@@ -99,7 +81,7 @@ function readAndDisplayFile(file) {
     };
     reader.readAsText(file);
 }
-
+// Fungsi untuk memisahkan data dengan benar berdasarkan tanda kutip ganda
 function parseCSVLine(line, separator) {
     const result = [];
     let currentField = '';
@@ -107,6 +89,7 @@ function parseCSVLine(line, separator) {
 
     for (let i = 0; i < line.length; i++) {
         const char = line[i];
+
         if (char === '"') {
             inQuotes = !inQuotes;
         } else if (char === separator && !inQuotes) {
@@ -122,6 +105,7 @@ function parseCSVLine(line, separator) {
     return result;
 }
 
+// Fungsi untuk menampilkan data dalam tabel
 function displayDataInTable(fileContent) {
     const rows = fileContent.split('\n');
     const separators = [',', ';', '\t'];
@@ -183,9 +167,12 @@ function updateDataDisplay() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    hideAllContent();
+});
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.122.199.243:8000/process/${fileId}`, {
+    fetch(`http://127.0.0.1:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -202,28 +189,30 @@ function startPreprocessing() {
                 <th>LowerCasing</th>
                 <th>Tokenizing</th>
                 <th>Lemmatized</th>
+                <th>Stemmed</th>
                 <th>StopWord</th>
                 <th>Sentiment_Label</th>
                 <th>Polarity</th>
             </tr>
         `;
         if (data["data"]) {
-            data["data"].forEach(row => {
+            for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${row["content"]}</td>
-                        <td>${row["Spacing"]}</td>
-                        <td>${row["HapusEmoticon"]}</td>
-                        <td>${row["HapusTandaBaca"]}</td>
-                        <td>${row["LowerCasing"]}</td>
-                        <td>${row["Tokenizing"]}</td>
-                        <td>${row["Lemmatized"]}</td>
-                        <td>${row["StopWord"]}</td>
-                        <td>${row["Sentiment_Label"]}</td>
-                        <td>${row["Polarity"]}</td>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Spacing"]}</td>
+                        <td>${data["data"][index]["HapusEmoticon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["LowerCasing"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                        <td>${data["data"][index]["Lemmatized"]}</td>
+                        <td>${data["data"][index]["Stemmed"]}</td>
+                        <td>${data["data"][index]["StopWord"]}</td>
+                        <td>${data["data"][index]["Sentiment_Label"]}</td>
+                        <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
                 `;
-            });
+            }
         } else {
             console.error('Data is empty or undefined');
         }
@@ -248,9 +237,10 @@ function startPreprocessing() {
             }
         });
         const wordcloud = document.getElementById('wordcloud');
+        console.log(data['wordcloud_base64']);
         wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
     })
-    .catch(error => {
+    .catch((error) => {
         console.error('Error:', error);
         alert('Error');
     });
@@ -259,7 +249,7 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://34.122.199.243:8000/splitdata/${fileId}`, {
+    fetch(`http://127.0.0.1:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -269,6 +259,7 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        // Menampilkan data latih
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
             <tr>
@@ -276,15 +267,16 @@ function splitData() {
                 <th>Sentiment_Label</th>
             </tr>
         `;
-        data['train_data'].forEach(row => {
+        for (let index = 0; index < data['train_data'].length; index++) {
             datatraining.innerHTML += `
                 <tr>
-                    <td>${row['StopWord']}</td>
-                    <td>${row['Sentiment_Label']}</td>
+                    <td>${data['train_data'][index]['StopWord']}</td>
+                    <td>${data['train_data'][index]['Sentiment_Label']}</td>
                 </tr>
             `;
-        });
+        }
 
+        // Menampilkan data uji
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -292,29 +284,28 @@ function splitData() {
                 <th>Sentiment_Label</th>
             </tr>
         `;
-        data['test_data'].forEach(row => {
+        for (let index = 0; index < data['test_data'].length; index++) {
             datatesting.innerHTML += `
                 <tr>
-                    <td>${row['StopWord']}</td>
-                    <td>${row['Sentiment_Label']}</td>
+                    <td>${data['test_data'][index]['StopWord']}</td>
+                    <td>${data['test_data'][index]['Sentiment_Label']}</td>
                 </tr>
             `;
-        });
-
-        showTrainingData();
+        }
+        showTrainingData();  // Menampilkan konten Training Data setelah preprocessing selesai
     })
-    .catch(error => {
+    .catch((error) => {
         console.error('Error:', error);
         alert('Error');
     });
 }
-
 function startklasification() {
     const hasilpreId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById('splitRatio').value;
+
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://34.122.199.243:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://127.0.0.1:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -328,8 +319,12 @@ function startklasification() {
 
         console.log(data);
 
-        const { accuracy, precision_macro: precision, recall_macro: recall, f1_macro: f1_score } = data;
+        let accuracy = data.accuracy;
+        let precision = data.precision_macro;
+        let recall = data.recall_macro;
+        let f1_score = data.f1_macro;
 
+        // Hancurkan grafik sebelumnya jika sudah ada
         const existingChart = Chart.getChart("myChart");
         if (existingChart) {
             existingChart.destroy();
@@ -396,6 +391,7 @@ function startklasification() {
         reportHtml += '</tbody></table>';
         document.getElementById('reportBox').innerHTML = reportHtml;
 
+        // Display the content
         document.getElementById('visualisasiDataContent').style.display = 'block';
     })
     .catch(error => {
@@ -411,7 +407,7 @@ function downloadData() {
         return;
     }
     const link = document.createElement('a');
-    link.href = `http://34.122.199.243:8000/download_preprocessed/${processedFileId}`;
+    link.href = `http://127.0.0.1:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
