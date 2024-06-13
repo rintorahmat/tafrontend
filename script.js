@@ -27,7 +27,7 @@ function showVisualisasiData() {
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
-function handleFileUpload(event) {
+async function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
         alert('Silakan pilih file yang ingin diunggah.');
@@ -35,36 +35,34 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://34.135.129.204:8000//upload', {
-        method: 'POST',
-        body: formData,
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert('Error uploading file: ' + data.error);
-            } else {
-                document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
-                console.log('Success:', data);
-                document.querySelector('.datapre').innerHTML=''
-                document.querySelector('.datatraining').innerHTML=''
-                document.querySelector('.datatesting').innerHTML=''
-                document.querySelector('#accuracyResult').innerHTML=''
-                document.querySelector('#reportBox').innerHTML=''
-                document.querySelector('#myChart').innerHTML=''
-                document.querySelector('#chartsentimen').innerHTML=''
-                document.querySelector('#wordcloud').innerHTML=''
-                localStorage.setItem('FILE_ID', data.id)
-                if (file.type === 'text/csv') {
-                    readAndDisplayFile(file);
-                }
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Error uploading file');
-        });
+    try {
+        const response = await fetch('http://34.135.129.204:8000/upload', {
+            method: 'POST',
+            body: formData,
+        }); 
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert('Error uploading file: ' + (errorData.detail || response.statusText));
+            return;
+        }
+        const data = await response.json();
+        document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
+        console.log('Success:', data);
+        document.querySelector('.datapre').innerHTML = '';
+        document.querySelector('.datatraining').innerHTML = '';
+        document.querySelector('.datatesting').innerHTML = '';
+        document.querySelector('#accuracyResult').innerHTML = '';
+        document.querySelector('#reportBox').innerHTML = '';
+        document.querySelector('#myChart').innerHTML = '';
+        document.querySelector('#chartsentimen').innerHTML = '';
+        document.querySelector('#wordcloud').innerHTML = '';
+        localStorage.setItem('FILE_ID', data.id);
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error uploading file');
+    }
 }
+
 function readAndDisplayFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
