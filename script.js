@@ -413,7 +413,12 @@ function downloadData() {
 
 // Fetch server status or initial data
 fetch("http://34.122.199.243:8000")
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Mengubah respons menjadi JSON
+    })
     .then(data => { 
         console.log(data);
     })
