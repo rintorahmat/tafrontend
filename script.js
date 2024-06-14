@@ -37,7 +37,7 @@ function triggerFileInput() {
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
-        alert('Silakan pilih file yang ingin diunggah.');
+        alert('Please select your file !');
         return;
     }
     const formData = new FormData();
@@ -62,6 +62,8 @@ function handleFileUpload(event) {
                 document.querySelector('#chartsentimen').innerHTML=''
                 document.querySelector('#wordcloud').innerHTML=''
                 localStorage.setItem('FILE_ID', data.id)
+
+                alert('File uploaded successfully !');
                 // Optionally display the file content in a table
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
@@ -171,6 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
     hideAllContent();
 });
 function startPreprocessing() {
+    const preprocessingMessage = document.createElement('p');
+    preprocessingMessage.innerText = 'Preprocessing is running...';
+    preprocessingMessage.id = 'preprocessingMessage';
+    document.body.appendChild(preprocessingMessage);
+    
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://34.122.199.243:8000/process/${fileId}`, {
         method: 'GET',
@@ -179,6 +186,9 @@ function startPreprocessing() {
     .then(data => {
         console.log(data);
         localStorage.setItem('FILE_ID_HASILPRE', data['id']);
+
+        document.getElementById('preprocessingMessage').remove();
+        
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
@@ -249,6 +259,14 @@ function startPreprocessing() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
+
+    const splitInfo = `
+        Split Data Ratio : ${splitRatio}
+        Training Data: In progress...
+        Testing Data: In progress...
+    `;
+    alert(splitInfo);
+    
     fetch(`http://34.122.199.243:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
@@ -259,6 +277,16 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+
+        const trainDataCount = data['train_data'].length;
+        const testDataCount = data['test_data'].length;
+        const updatedSplitInfo = `
+            Split Data Ratio : ${splitRatio}
+            Amount of Training Data : ${trainDataCount}
+            Amount of Testing Data : ${testDataCount}
+        `;
+        alert(updatedSplitInfo);
+        
         // Menampilkan data latih
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
@@ -300,6 +328,8 @@ function splitData() {
     });
 }
 function startklasification() {
+    const runningMessage = 'Classification is in progress...';
+    alert(runningMessage);
     const hasilpreId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById('splitRatio').value;
 
@@ -313,6 +343,7 @@ function startklasification() {
     })
     .then(response => response.json())
     .then(data => {
+        alert('Classification complete !');
         if (!data || !data.classification_report) {
             throw new Error('Invalid data received from the server.');
         }
@@ -403,7 +434,7 @@ function startklasification() {
 function downloadData() {
     const processedFileId = localStorage.getItem('FILE_ID_HASILPRE');
     if (!processedFileId) {
-        alert("Data belum diproses. Silakan lakukan preprocessing terlebih dahulu.");
+        alert("Data has not been processed. Please do preprocessing first !");
         return;
     }
     const link = document.createElement('a');
