@@ -259,10 +259,7 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-
-        const trainDataCount = data['train_data'].length;
-        const testDataCount = data['test_data'].length;   
-        // Menampilkan data latih
+        
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
             <tr>
@@ -279,7 +276,6 @@ function splitData() {
             `;
         }
 
-        // Menampilkan data uji
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -295,13 +291,14 @@ function splitData() {
                 </tr>
             `;
         }
-        showTrainingData();  // Menampilkan konten Training Data setelah preprocessing selesai
+        showTrainingData();
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
     });
 }
+
 function startklasification() {
     const hasilpreId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById('splitRatio').value;
