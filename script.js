@@ -183,6 +183,7 @@ function startPreprocessing() {
         datapre.innerHTML = `
             <tr>
                 <th>content</th>
+                <th>Translated</th>
                 <th>Spacing</th>
                 <th>HapusEmoticon</th>
                 <th>HapusTandaBaca</th>
@@ -200,6 +201,7 @@ function startPreprocessing() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
                         <td>${data["data"][index]["Spacing"]}</td>
                         <td>${data["data"][index]["HapusEmoticon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
