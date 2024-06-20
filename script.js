@@ -832,14 +832,14 @@ function splitData() {
         datatesting.innerHTML = `
             <tr>
                 <th>StopWord</th>
-                <th>Sentiment_Label</th>
+                <th>SentimentLabel</th>
             </tr>
         `;
         for (let index = 0; index < data['test_data'].length; index++) {
             datatesting.innerHTML += `
                 <tr>
                     <td>${data['test_data'][index]['StopWord']}</td>
-                    <td>${data['test_data'][index]['Sentiment_Label']}</td>
+                    <td>${data['test_data'][index]['SentimentLabel']}</td>
                 </tr>
             `;
         }
