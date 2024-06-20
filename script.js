@@ -37,12 +37,12 @@ function triggerFileInput() {
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
-        alert('Please select your file !');
+        alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://34.122.199.243:8000/upload', {
+    fetch('http://127.0.0.1:8000/upload', {
         method: 'POST',
         body: formData,
     })
@@ -170,15 +170,15 @@ function updateDataDisplay() {
 document.addEventListener('DOMContentLoaded', function () {
     hideAllContent();
 });
-function startPreprocessing() {    
+function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.122.199.243:8000/process/${fileId}`, {
+    fetch(`http://127.0.0.1:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        localStorage.setItem('FILE_ID_HASILPRE', data['id']);    
+        localStorage.setItem('FILE_ID_HASILPRE', data['id']);
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
@@ -248,10 +248,559 @@ function startPreprocessing() {
     });
 }
 
+function deletelines() {
+    const fileId = localStorage.getItem('FILE_ID');
+    fetch(`http://127.0.0.1:8000/procesblankdata/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        localStorage.setItem('FILE_ID_HASILPRE', data['id']);
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function translated() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/translated/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function spacing() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/spacing/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function deleteemot() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/delemot/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function removepunc() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/hapustandabaca/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function lowercasing() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/lowercasing/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>LowerCasing</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["LowerCasing"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function tokenizing() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/tokenize/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>Tokenizing</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function lematized() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/lemmatized/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>Tokenizing</th>
+                <th>Lemmatized</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                        <td>${data["data"][index]["Lemmatized"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function stemmed() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/stemmed/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>Tokenizing</th>
+                <th>Lemmatized</th>
+                <th>Stemmed</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                        <td>${data["data"][index]["Lemmatized"]}</td>
+                        <td>${data["data"][index]["Stemmed"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function stopword() {
+    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
+    fetch(`http://127.0.0.1:8000/stopword/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.error) {
+            console.error('Error from server:', data.error);
+            alert('Error from server: ' + data.error);
+            return;
+        }
+
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>Tokenizing</th>
+                <th>Lemmatized</th>
+                <th>Stemmed</th>
+                <th>StopWord</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                        <td>${data["data"][index]["Lemmatized"]}</td>
+                        <td>${data["data"][index]["Stemmed"]}</td>
+                        <td>${data["data"][index]["StopWord"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
+function sentimenanalis() {
+    const fileId = localStorage.getItem('FILE_ID');
+    fetch(`http://127.0.0.1:8000/sentimenanalis/${fileId}`, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        localStorage.setItem('FILE_ID_HASILPRE', data['id']);
+        const datapre = document.querySelector('.datapre');
+        datapre.innerHTML = `
+            <tr>
+                <th>content</th>
+                <th>Translated</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
+                <th>HapusTandaBaca</th>
+                <th>Tokenizing</th>
+                <th>Lemmatized</th>
+                <th>Stemmed</th>
+                <th>StopWord</th>
+                <th>SentimentLabel</th>
+                <th>Polarity</th>
+            </tr>
+        `;
+        if (data["data"]) {
+            for (let index = 0; index < data["data"].length; index++) {
+                datapre.innerHTML += `
+                    <tr>
+                        <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["Translated"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
+                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
+                        <td>${data["data"][index]["Tokenizing"]}</td>
+                        <td>${data["data"][index]["Lemmatized"]}</td>
+                        <td>${data["data"][index]["Stemmed"]}</td>
+                        <td>${data["data"][index]["StopWord"]}</td>
+                        <td>${data["data"][index]["SentimentLabel"]}</td>
+                        <td>${data["data"][index]["Polarity"]}</td>
+                    </tr>
+                `;
+            }
+        } else {
+            console.error('Data is empty or undefined');
+        }
+        
+        const ctx = document.getElementById('chartsentimen');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['positif', 'negatif', 'netral'],
+                datasets: [{
+                    label: 'Persen',
+                    data: [data["label_positif"], data["label_negatif"], data["label_netral"]],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        const wordcloud = document.getElementById('wordcloud');
+        console.log(data['wordcloud_base64']);
+        wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error');
+    });
+}
+
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://34.122.199.243:8000/splitdata/${fileId}`, {
+    fetch(`http://127.0.0.1:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -261,7 +810,7 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        
+        // Menampilkan data latih
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
             <tr>
@@ -278,6 +827,7 @@ function splitData() {
             `;
         }
 
+        // Menampilkan data uji
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -293,21 +843,20 @@ function splitData() {
                 </tr>
             `;
         }
-        showTrainingData();
+        showTrainingData();  // Menampilkan konten Training Data setelah preprocessing selesai
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
     });
 }
-
 function startklasification() {
     const hasilpreId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById('splitRatio').value;
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://34.122.199.243:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://127.0.0.1:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -405,19 +954,14 @@ function startklasification() {
 function downloadData() {
     const processedFileId = localStorage.getItem('FILE_ID_HASILPRE');
     if (!processedFileId) {
-        alert("Data has not been processed. Please do preprocessing first !");
+        alert("Data belum diproses. Silakan lakukan preprocessing terlebih dahulu.");
         return;
     }
     const link = document.createElement('a');
-    link.href = `http://34.122.199.243:8000/download_preprocessed/${processedFileId}`;
+    link.href = `http://127.0.0.1:8000/download_preprocessed/${processedFileId}`;
     link.click();
 }
 
-fetch("http://34.122.199.243:8000/")
-    .then(response => response.json())
-    .then(data => { 
-        console.log(data);
-    })
-    .catch(error => {
-        console.error('Error fetching server data:', error);
-    });
+fetch("http://127.0.0.1:8000")
+    .then((respon) => respon.json())
+    .then((data) => { console.log(data) })
