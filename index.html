@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,7 +13,7 @@
 
 <body>
     <header>
-        <h1>Analisis Sentimen Feedback Pengguna Capcut Dengan Support Vector Machine (SVM)</h1>
+        <h1>Analisis Sentimen Feedback Pengguna Capcut Dengan Support Vector Machine (SVM): Evaluasi Pengalaman Pengguna dan Daya Tarik Aplikasi Capcut</h1>
     </header>
 
     <div class="container">
@@ -62,14 +63,32 @@
                     </select>
                 </div>
                 <div class="button-container">
-                    <button onclick="startPreprocessing()">
-                        <span class="iconify" data-icon="feather:play" data-inline="false"></span> Mulai Preprocessing</button>
+                    <!-- <button onclick="startPreprocessing()">
+                        <span class="iconify" data-icon="feather:play" data-inline="false"></span> Mulai Preprocessing</button> -->
                     <button onclick="splitData()">
                         <span class="iconify" data-icon="feather:scissors" data-inline="false"></span> Split Data</button>
                     <button onclick="downloadData()">
                         <span class="iconify" data-icon="feather:download-cloud" data-inline="false"></span> Unduh Data</button>
                 </div>
-                <table class="datapre"></table>
+                <div class="preprocessing-container">
+                    <div class="preprocessing-sidebar">
+                        <button onclick="startPreprocessing()">Start All</button>
+                        <button onclick="deletelines('deletelines')">Delete Blank Lines</button>
+                        <button onclick="translated('translate')">Translated</button>
+                        <button onclick="spacing('spacing')">Spacing</button>
+                        <button onclick="deleteemot('deleteemot')">Delete Emoticon</button>
+                        <button onclick="removepunc('removepunc')">Remove Punctuation</button>
+                        <button onclick="lowercasing('lowercasing')">Lowercasing</button>
+                        <button onclick="tokenizing('tokenizing')">Tokenizing</button>
+                        <button onclick="lematized('lematized')">Lemmatized</button>
+                        <button onclick="stemmed('stemmed')">Stemmed</button>
+                        <button onclick="stopword('stopword')">Stopword</button>
+                        <button onclick="sentimenanalis('sentimenanalis')">Sentimen Analys</button>
+                    </div>
+                    <div class="datapre-container">
+                        <table class="datapre"></table>
+                    </div>
+                </div>
             </div>         
 
             <div id="trainingDataContent" style="display: none;">
