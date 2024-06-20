@@ -130,3 +130,16 @@ button {
     padding: 30px;
     border: 1px solid #ddd;
 }
+.preprocessing-container {
+    display: flex;
+}
+.preprocessing-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-right: 20px;
+}
+.datapre-container {
+    flex: 1;
+    overflow-x: auto;
+}
