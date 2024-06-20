@@ -815,14 +815,14 @@ function splitData() {
         datatraining.innerHTML = `
             <tr>
                 <th>StopWord</th>
-                <th>Sentiment_Label</th>
+                <th>SentimentLabel</th>
             </tr>
         `;
         for (let index = 0; index < data['train_data'].length; index++) {
             datatraining.innerHTML += `
                 <tr>
                     <td>${data['train_data'][index]['StopWord']}</td>
-                    <td>${data['train_data'][index]['Sentiment_Label']}</td>
+                    <td>${data['train_data'][index]['SentimentLabel']}</td>
                 </tr>
             `;
         }
