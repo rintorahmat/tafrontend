@@ -4,36 +4,36 @@ function hideAllContent() {
         content.style.display = 'none';
     });
 }
-// Fungsi untuk menampilkan konten Import Data
+
 function showImportData() {
     hideAllContent();
     document.getElementById('importDataContent').style.display = 'block';
 }
-// Fungsi untuk menampilkan konten Preprocessing
+
 function showPreprocessing() {
     hideAllContent();
     document.getElementById('preprocessingContent').style.display = 'block';
 }
-// Fungsi untuk menampilkan konten Training Data
+
 function showTrainingData() {
     hideAllContent();
     document.getElementById('trainingDataContent').style.display = 'block';
 }
-// Fungsi untuk menampilkan konten Testing Data
+
 function showTestingData() {
     hideAllContent();
     document.getElementById('testingDataContent').style.display = 'block';
 }
-// Fungsi untuk menampilkan konten Visualisasi Data
+
 function showVisualisasiData() {
     hideAllContent();
     document.getElementById('visualisasiDataContent').style.display = 'block';
 }
-// Fungsi untuk memicu dialog file explorer saat tombol "Upload Data" diklik
+
 function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
-// Fungsi untuk menangani file yang diunggah
+
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) {
@@ -42,7 +42,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://35.239.135.4:8000/upload', {
+    fetch('http://104.198.47.110:8000/upload', {
         method: 'POST',
         body: formData,
     })
@@ -62,7 +62,7 @@ function handleFileUpload(event) {
                 document.querySelector('#chartsentimen').innerHTML=''
                 document.querySelector('#wordcloud').innerHTML=''
                 localStorage.setItem('FILE_ID', data.id)
-                // Optionally display the file content in a table
+
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
                 }
@@ -81,7 +81,7 @@ function readAndDisplayFile(file) {
     };
     reader.readAsText(file);
 }
-// Fungsi untuk memisahkan data dengan benar berdasarkan tanda kutip ganda
+
 function parseCSVLine(line, separator) {
     const result = [];
     let currentField = '';
@@ -105,7 +105,6 @@ function parseCSVLine(line, separator) {
     return result;
 }
 
-// Fungsi untuk menampilkan data dalam tabel
 function displayDataInTable(fileContent) {
     const rows = fileContent.split('\n');
     const separators = [',', ';', '\t'];
@@ -172,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.239.135.4:8000/process/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -184,15 +183,14 @@ function startPreprocessing() {
             <tr>
                 <th>content</th>
                 <th>Translated</th>
-                <th>Spacing</th>
-                <th>HapusEmoticon</th>
+                <th>Space</th>
+                <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
-                <th>LowerCasing</th>
                 <th>Tokenizing</th>
                 <th>Lemmatized</th>
                 <th>Stemmed</th>
                 <th>StopWord</th>
-                <th>Sentiment_Label</th>
+                <th>SentimentLabel</th>
                 <th>Polarity</th>
             </tr>
         `;
@@ -202,15 +200,14 @@ function startPreprocessing() {
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
                         <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Spacing"]}</td>
-                        <td>${data["data"][index]["HapusEmoticon"]}</td>
+                        <td>${data["data"][index]["Space"]}</td>
+                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
-                        <td>${data["data"][index]["LowerCasing"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
                         <td>${data["data"][index]["Lemmatized"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
-                        <td>${data["data"][index]["Sentiment_Label"]}</td>
+                        <td>${data["data"][index]["SentimentLabel"]}</td>
                         <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
                 `;
@@ -248,9 +245,10 @@ function startPreprocessing() {
     });
 }
 
+
 function deletelines() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.239.135.4:8000/procesblankdata/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/procesblankdata/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -281,6 +279,12 @@ function deletelines() {
         } else {
             console.error('Data is empty or undefined');
         }
+
+        if (data.hasOwnProperty('rows_removed')) {
+            alert(`Number of rows removed : ${data.rows_removed}`);
+        } else {
+            console.error('Number of rows removed is not defined');
+        }
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -290,7 +294,7 @@ function deletelines() {
 
 function translated() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/translated/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/translated/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -331,7 +335,7 @@ function translated() {
 
 function spacing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/spacing/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/spacing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -374,7 +378,7 @@ function spacing() {
 
 function deleteemot() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/delemot/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/delemot/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -419,7 +423,7 @@ function deleteemot() {
 
 function removepunc() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/hapustandabaca/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/hapustandabaca/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -466,7 +470,7 @@ function removepunc() {
 
 function lowercasing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/lowercasing/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/lowercasing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -512,10 +516,9 @@ function lowercasing() {
         alert('Error');
     });
 }
-
 function tokenizing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/tokenize/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/tokenize/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -561,10 +564,9 @@ function tokenizing() {
         alert('Error');
     });
 }
-
 function lematized() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/lemmatized/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/lemmatized/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -612,10 +614,9 @@ function lematized() {
         alert('Error');
     });
 }
-
 function stemmed() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/stemmed/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/stemmed/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -668,7 +669,7 @@ function stemmed() {
 
 function stopword() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.239.135.4:8000/stopword/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/stopword/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -723,7 +724,7 @@ function stopword() {
 
 function sentimenanalis() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.239.135.4:8000/sentimenanalis/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/sentimenanalis/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -800,7 +801,7 @@ function sentimenanalis() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://35.239.135.4:8000/splitdata/${fileId}`, {
+    fetch(`http://104.198.47.110:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -810,7 +811,7 @@ function splitData() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        // Menampilkan data latih
+
         const datatraining = document.querySelector('.datatraining');
         datatraining.innerHTML = `
             <tr>
@@ -827,7 +828,6 @@ function splitData() {
             `;
         }
 
-        // Menampilkan data uji
         const datatesting = document.querySelector('.datatesting');
         datatesting.innerHTML = `
             <tr>
@@ -843,7 +843,7 @@ function splitData() {
                 </tr>
             `;
         }
-        showTrainingData();  // Menampilkan konten Training Data setelah preprocessing selesai
+        showTrainingData();
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -856,7 +856,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://35.239.135.4:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://104.198.47.110:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -875,7 +875,6 @@ function startklasification() {
         let recall = data.recall_macro;
         let f1_score = data.f1_macro;
 
-        // Hancurkan grafik sebelumnya jika sudah ada
         const existingChart = Chart.getChart("myChart");
         if (existingChart) {
             existingChart.destroy();
@@ -942,7 +941,6 @@ function startklasification() {
         reportHtml += '</tbody></table>';
         document.getElementById('reportBox').innerHTML = reportHtml;
 
-        // Display the content
         document.getElementById('visualisasiDataContent').style.display = 'block';
     })
     .catch(error => {
@@ -957,11 +955,27 @@ function downloadData() {
         alert("Data belum diproses. Silakan lakukan preprocessing terlebih dahulu.");
         return;
     }
-    const link = document.createElement('a');
-    link.href = `http://35.239.135.4:8000/download_preprocessed/${processedFileId}`;
-    link.click();
+
+    fetch(`http://104.198.47.110:8000/download_preprocessed/${processedFileId}`)
+        .then(response => {
+            if (response.ok) {
+                const link = document.createElement('a');
+                link.href = response.url;
+                link.download = 'deteleblankline.csv';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                alert("Data Anda berhasil didownload");
+            } else {
+                alert("File tidak ditemukan. Silakan lakukan preprocessing terlebih dahulu.");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mendownload file');
+        });
 }
 
-fetch("http://35.239.135.4:8000")
+fetch("http://104.198.47.110:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
