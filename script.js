@@ -187,7 +187,6 @@ function startPreprocessing() {
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
-                <th>Lemmatized</th>
                 <th>Stemmed</th>
                 <th>StopWord</th>
                 <th>SentimentLabel</th>
@@ -204,7 +203,6 @@ function startPreprocessing() {
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
@@ -564,56 +562,7 @@ function tokenizing() {
         alert('Error');
     });
 }
-function lematized() {
-    const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.45.40.112:8000/lemmatized/${fileId}`, {
-        method: 'GET',
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
 
-        if (data.error) {
-            console.error('Error from server:', data.error);
-            alert('Error from server: ' + data.error);
-            return;
-        }
-
-        const datapre = document.querySelector('.datapre');
-        datapre.innerHTML = `
-            <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
-                <th>HapusTandaBaca</th>
-                <th>Tokenizing</th>
-                <th>Lemmatized</th>
-            </tr>
-        `;
-        if (data["data"]) {
-            for (let index = 0; index < data["data"].length; index++) {
-                datapre.innerHTML += `
-                    <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
-                        <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
-                    </tr>
-                `;
-            }
-        } else {
-            console.error('Data is empty or undefined');
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error');
-    });
-}
 function stemmed() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.45.40.112:8000/stemmed/${fileId}`, {
@@ -638,7 +587,6 @@ function stemmed() {
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
-                <th>Lemmatized</th>
                 <th>Stemmed</th>
             </tr>
         `;
@@ -652,7 +600,6 @@ function stemmed() {
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                     </tr>
                 `;
@@ -691,7 +638,6 @@ function stopword() {
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
-                <th>Lemmatized</th>
                 <th>Stemmed</th>
                 <th>StopWord</th>
             </tr>
@@ -706,7 +652,6 @@ function stopword() {
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
                     </tr>
@@ -740,7 +685,6 @@ function sentimenanalis() {
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
-                <th>Lemmatized</th>
                 <th>Stemmed</th>
                 <th>StopWord</th>
                 <th>SentimentLabel</th>
@@ -757,7 +701,6 @@ function sentimenanalis() {
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Lemmatized"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
