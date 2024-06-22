@@ -787,6 +787,7 @@ function splitData() {
             `;
         }
         showTrainingData();
+        alert(Split data successful! Training data: ${data['train_data'].length} data, Testing data: ${data['test_data'].length} data);
     })
     .catch((error) => {
         console.error('Error:', error);
