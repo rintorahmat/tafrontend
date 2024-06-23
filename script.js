@@ -52,17 +52,16 @@ function handleFileUpload(event) {
                 alert('Error uploading file: ' + data.error);
             } else {
                 document.getElementById('uploadedFileName').innerText = `File yang di upload : ${file.name}`;
-                alert(`File successfully uploaded. Number of rows: ${data.row_count}`);
                 console.log('Success:', data);
-                document.querySelector('.datapre').innerHTML = '';
-                document.querySelector('.datatraining').innerHTML = '';
-                document.querySelector('.datatesting').innerHTML = '';
-                document.querySelector('#accuracyResult').innerHTML = '';
-                document.querySelector('#reportBox').innerHTML = '';
-                document.querySelector('#myChart').innerHTML = '';
-                document.querySelector('#chartsentimen').innerHTML = '';
-                document.querySelector('#wordcloud').innerHTML = '';
-                localStorage.setItem('FILE_ID', data.id);
+                document.querySelector('.datapre').innerHTML=''
+                document.querySelector('.datatraining').innerHTML=''
+                document.querySelector('.datatesting').innerHTML=''
+                document.querySelector('#accuracyResult').innerHTML=''
+                document.querySelector('#reportBox').innerHTML=''
+                document.querySelector('#myChart').innerHTML=''
+                document.querySelector('#chartsentimen').innerHTML=''
+                document.querySelector('#wordcloud').innerHTML=''
+                localStorage.setItem('FILE_ID', data.id)
 
                 if (file.type === 'text/csv') {
                     readAndDisplayFile(file);
@@ -73,7 +72,6 @@ function handleFileUpload(event) {
             console.error('Error:', error);
             alert('Error uploading file');
         });
-}
 
 function readAndDisplayFile(file) {
     const reader = new FileReader();
