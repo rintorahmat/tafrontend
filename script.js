@@ -786,6 +786,10 @@ function splitData() {
                 </tr>
             `;
         }
+        const trainDataCount = data['train_data'].length;
+        const testDataCount = data['test_data'].length;
+        alert(`Data split complete. Training data: ${trainDataCount}, Testing data: ${testDataCount}`);
+
         showTrainingData();
     })
     .catch((error) => {
