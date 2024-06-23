@@ -72,7 +72,7 @@ function handleFileUpload(event) {
             console.error('Error:', error);
             alert('Error uploading file');
         });
-
+}
 function readAndDisplayFile(file) {
     const reader = new FileReader();
     reader.onload = function (e) {
