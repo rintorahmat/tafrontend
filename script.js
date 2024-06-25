@@ -349,8 +349,6 @@ function spacing() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
                 <th>Space</th>
             </tr>
         `;
@@ -358,8 +356,6 @@ function spacing() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
                         <td>${data["data"][index]["Space"]}</td>
                     </tr>
                 `;
@@ -392,9 +388,6 @@ function deleteemot() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
                 <th>DeleteEmotikon</th>
             </tr>
         `;
@@ -402,9 +395,6 @@ function deleteemot() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                     </tr>
                 `;
@@ -437,10 +427,6 @@ function removepunc() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
             </tr>
         `;
@@ -448,10 +434,6 @@ function removepunc() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                     </tr>
                 `;
@@ -484,11 +466,6 @@ function lowercasing() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
-                <th>HapusTandaBaca</th>
                 <th>LowerCasing</th>
             </tr>
         `;
@@ -496,11 +473,6 @@ function lowercasing() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["LowerCasing"]}</td>
                     </tr>
                 `;
@@ -532,11 +504,6 @@ function tokenizing() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
-                <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
             </tr>
         `;
@@ -544,11 +511,6 @@ function tokenizing() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
                     </tr>
                 `;
@@ -581,12 +543,6 @@ function stemmed() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
-                <th>HapusTandaBaca</th>
-                <th>Tokenizing</th>
                 <th>Stemmed</th>
             </tr>
         `;
@@ -594,12 +550,6 @@ function stemmed() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
-                        <td>${data["data"][index]["Tokenizing"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                     </tr>
                 `;
@@ -632,13 +582,6 @@ function stopword() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
-                <th>Translated</th>
-                <th>Space</th>
-                <th>DeleteEmotikon</th>
-                <th>HapusTandaBaca</th>
-                <th>Tokenizing</th>
-                <th>Stemmed</th>
                 <th>StopWord</th>
             </tr>
         `;
@@ -646,13 +589,6 @@ function stopword() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["Translated"]}</td>
-                        <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["DeleteEmotikon"]}</td>
-                        <td>${data["data"][index]["HapusTandaBaca"]}</td>
-                        <td>${data["data"][index]["Tokenizing"]}</td>
-                        <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
                     </tr>
                 `;
@@ -679,6 +615,7 @@ function sentimenanalis() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
+                <th>StopWord</th>
                 <th>SentimentLabel</th>
                 <th>Polarity</th>
             </tr>
@@ -687,6 +624,7 @@ function sentimenanalis() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
+                        <td>${data["data"][index]["StopWord"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
                         <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
