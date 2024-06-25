@@ -42,7 +42,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://35.202.57.97:8000/upload', {
+    fetch('http://34.42.66.127:8000/upload', {
         method: 'POST',
         body: formData,
     })
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 function startPreprocessing() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.202.57.97:8000/process/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -246,7 +246,7 @@ function startPreprocessing() {
 
 function deletelines() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.202.57.97:8000/procesblankdata/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/procesblankdata/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -292,7 +292,7 @@ function deletelines() {
 
 function translated() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/translated/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/translated/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -333,7 +333,7 @@ function translated() {
 
 function spacing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/spacing/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/spacing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -376,7 +376,7 @@ function spacing() {
 
 function deleteemot() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/delemot/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/delemot/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -421,7 +421,7 @@ function deleteemot() {
 
 function removepunc() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/hapustandabaca/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/hapustandabaca/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -468,7 +468,7 @@ function removepunc() {
 
 function lowercasing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/lowercasing/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/lowercasing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -516,7 +516,7 @@ function lowercasing() {
 }
 function tokenizing() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/tokenize/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/tokenize/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -565,7 +565,7 @@ function tokenizing() {
 
 function stemmed() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/stemmed/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/stemmed/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -616,7 +616,7 @@ function stemmed() {
 
 function stopword() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://35.202.57.97:8000/stopword/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/stopword/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -669,7 +669,7 @@ function stopword() {
 
 function sentimenanalis() {
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://35.202.57.97:8000/sentimenanalis/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/sentimenanalis/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -728,7 +728,7 @@ function sentimenanalis() {
 function splitData() {
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://35.202.57.97:8000/splitdata/${fileId}`, {
+    fetch(`http://34.42.66.127:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -787,7 +787,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://35.202.57.97:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://34.42.66.127:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -887,7 +887,7 @@ function downloadData() {
         return;
     }
 
-    fetch(`http://35.202.57.97:8000/download_preprocessed/${processedFileId}`)
+    fetch(`http://34.42.66.127:8000/download_preprocessed/${processedFileId}`)
         .then(response => {
             if (response.ok) {
                 const link = document.createElement('a');
@@ -907,6 +907,6 @@ function downloadData() {
         });
 }
 
-fetch("http://35.202.57.97:8000")
+fetch("http://34.42.66.127:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
