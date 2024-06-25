@@ -308,7 +308,6 @@ function translated() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>content</th>
                 <th>Translated</th>
             </tr>
         `;
@@ -316,7 +315,6 @@ function translated() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["content"]}</td>
                         <td>${data["data"][index]["Translated"]}</td>
                     </tr>
                 `;
