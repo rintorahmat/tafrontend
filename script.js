@@ -182,7 +182,6 @@ function startPreprocessing() {
         datapre.innerHTML = `
             <tr>
                 <th>content</th>
-                <th>NilaiAktual</th>
                 <th>Translated</th>
                 <th>Space</th>
                 <th>DeleteEmotikon</th>
@@ -190,6 +189,7 @@ function startPreprocessing() {
                 <th>Tokenizing</th>
                 <th>Stemmed</th>
                 <th>StopWord</th>
+                <th>NilaiAktual</th>
                 <th>SentimentLabel</th>
                 <th>Polarity</th>
             </tr>
@@ -199,7 +199,6 @@ function startPreprocessing() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["NilaiAktual"]}</td>
                         <td>${data["data"][index]["Translated"]}</td>
                         <td>${data["data"][index]["Space"]}</td>
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
@@ -207,6 +206,7 @@ function startPreprocessing() {
                         <td>${data["data"][index]["Tokenizing"]}</td>
                         <td>${data["data"][index]["Stemmed"]}</td>
                         <td>${data["data"][index]["StopWord"]}</td>
+                        <td>${data["data"][index]["NilaiAktual"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
                         <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
