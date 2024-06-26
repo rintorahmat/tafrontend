@@ -266,7 +266,6 @@ function deletelines() {
         datapre.innerHTML = `
             <tr>
                 <th>content</th>
-                <th>NilaiAktual</th>
             </tr>
         `;
         if (data["data"]) {
@@ -274,7 +273,6 @@ function deletelines() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
-                        <td>${data["data"][index]["NilaiAktual"]}</td>
                     </tr>
                 `;
             }
