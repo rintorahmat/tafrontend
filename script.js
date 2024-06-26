@@ -617,7 +617,8 @@ function sentimenanalis() {
         const datapre = document.querySelector('.datapre');
         datapre.innerHTML = `
             <tr>
-                <th>StopWord</th>
+                <th>Stemmed</th>
+                <th>NilaiAktual</th>
                 <th>SentimentLabel</th>
                 <th>Polarity</th>
             </tr>
@@ -626,7 +627,8 @@ function sentimenanalis() {
             for (let index = 0; index < data["data"].length; index++) {
                 datapre.innerHTML += `
                     <tr>
-                        <td>${data["data"][index]["StopWord"]}</td>
+                        <td>${data["data"][index]["Stemmed"]}</td>
+                        <td>${data["data"][index]["NilaiAktual"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
                         <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
