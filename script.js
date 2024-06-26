@@ -182,6 +182,7 @@ function startPreprocessing() {
         datapre.innerHTML = `
             <tr>
                 <th>content</th>
+                <th>NilaiAktual</th>
                 <th>Translated</th>
                 <th>Space</th>
                 <th>DeleteEmotikon</th>
@@ -198,6 +199,7 @@ function startPreprocessing() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["NilaiAktual"]}</td>
                         <td>${data["data"][index]["Translated"]}</td>
                         <td>${data["data"][index]["Space"]}</td>
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
@@ -264,6 +266,7 @@ function deletelines() {
         datapre.innerHTML = `
             <tr>
                 <th>content</th>
+                <th>NilaiAktual</th>
             </tr>
         `;
         if (data["data"]) {
@@ -271,6 +274,7 @@ function deletelines() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["content"]}</td>
+                        <td>${data["data"][index]["NilaiAktual"]}</td>
                     </tr>
                 `;
             }
