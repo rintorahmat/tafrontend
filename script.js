@@ -241,7 +241,7 @@ function startPreprocessing() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('File data Upload Dataset tidak ditemukan');
+        alert('File data Upload tidak ditemukan');
     });
 }
 
