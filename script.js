@@ -327,7 +327,7 @@ function translated() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Error');
+        alert('File data hasil Space tidak ditemukan');
     });
 }
 
