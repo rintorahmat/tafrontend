@@ -661,7 +661,7 @@ function sentimenanalis() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Error');
+        alert('File data hasil Stemmed tidak ditemukan');
     });f
 }
 
