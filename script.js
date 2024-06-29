@@ -718,7 +718,7 @@ function splitData() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Error');
+        alert('File data hasil Preprocessing tidak ditemukan');
     });
 }
 function startklasification() {
