@@ -40,7 +40,6 @@ function handleFileUpload(event) {
         alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
-    document.getElementById('loadingAnimation').style.display = 'flex';
     const formData = new FormData();
     formData.append('file', file);
     fetch('http://34.71.15.198:8000/upload', {
@@ -72,7 +71,6 @@ function handleFileUpload(event) {
         .catch((error) => {
             console.error('Error:', error);
             alert('Error uploading file');
-             document.getElementById('loadingAnimation').style.display = 'none';
         });
 }
 function readAndDisplayFile(file) {
