@@ -184,7 +184,7 @@ function startPreprocessing() {
                 <th>content</th>
                 <th>Translated</th>
                 <th>Space</th>
-                <th?Lowercasing</th>
+                <th?LowerCasing</th>
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
@@ -202,7 +202,7 @@ function startPreprocessing() {
                         <td>${data["data"][index]["content"]}</td>
                         <td>${data["data"][index]["Translated"]}</td>
                         <td>${data["data"][index]["Space"]}</td>
-                        <td>${data["data"][index]["Lowercasing"]}</td>
+                        <td>${data["data"][index]["LowerCasing"]}</td>
                         <td>${data["data"][index]["DeleteEmotikon"]}</td>
                         <td>${data["data"][index]["HapusTandaBaca"]}</td>
                         <td>${data["data"][index]["Tokenizing"]}</td>
