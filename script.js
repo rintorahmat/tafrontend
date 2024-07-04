@@ -275,6 +275,7 @@ function deletelines() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -302,6 +303,7 @@ function deletelines() {
         } else {
             console.error('Number of rows removed is not defined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
@@ -311,6 +313,8 @@ function deletelines() {
 }
 
 function translated() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/translated/${fileId}`, {
@@ -323,6 +327,7 @@ function translated() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -343,10 +348,12 @@ function translated() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Space tidak ditemukan');
+        loading.style.display = 'none';
     });
 }
 
