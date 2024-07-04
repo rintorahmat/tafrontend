@@ -304,8 +304,6 @@ function deletelines() {
 }
 
 function translated() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/translated/${fileId}`, {
@@ -339,7 +337,6 @@ function translated() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Space tidak ditemukan');
@@ -347,8 +344,6 @@ function translated() {
 }
 
 function spacing() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/spacing/${fileId}`, {
@@ -382,7 +377,6 @@ function spacing() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -390,8 +384,6 @@ function spacing() {
 }
 
 function deleteemot() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/delemot/${fileId}`, {
@@ -425,7 +417,6 @@ function deleteemot() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -433,8 +424,6 @@ function deleteemot() {
 }
 
 function removepunc() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/hapustandabaca/${fileId}`, {
@@ -468,7 +457,6 @@ function removepunc() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -476,8 +464,6 @@ function removepunc() {
 }
 
 function lowercasing() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/lowercasing/${fileId}`, {
@@ -511,15 +497,12 @@ function lowercasing() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
     });
 }
 function tokenizing() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/tokenize/${fileId}`, {
@@ -553,7 +536,6 @@ function tokenizing() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -561,8 +543,6 @@ function tokenizing() {
 }
 
 function stemmed() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/stemmed/${fileId}`, {
@@ -596,7 +576,6 @@ function stemmed() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -604,8 +583,6 @@ function stemmed() {
 }
 
 function stopword() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/stopword/${fileId}`, {
@@ -639,7 +616,6 @@ function stopword() {
             console.error('Data is empty or undefined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
@@ -647,8 +623,6 @@ function stopword() {
 }
 
 function sentimenanalis() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://34.66.119.246:8000/sentimenanalis/${fileId}`, {
@@ -705,7 +679,6 @@ function sentimenanalis() {
         console.log(data['wordcloud_base64']);
         wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Stemmed tidak ditemukan');
@@ -713,8 +686,6 @@ function sentimenanalis() {
 }
 
 function splitData() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
@@ -766,7 +737,6 @@ function splitData() {
 
         showTrainingData();
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Preprocessing tidak ditemukan');
@@ -872,8 +842,6 @@ function startklasification() {
 }
 
 function downloadData() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const processedFileId = localStorage.getItem('FILE_ID_HASILPRE');
     if (!processedFileId) {
@@ -895,7 +863,6 @@ function downloadData() {
                 alert("File tidak ditemukan. Silakan lakukan preprocessing terlebih dahulu.");
             }
         })
-        loading.style.display = 'none';
         .catch(error => {
             console.error('Error:', error);
             alert('Terjadi kesalahan saat mendownload file');
