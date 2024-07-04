@@ -170,6 +170,9 @@ document.addEventListener('DOMContentLoaded', function () {
     hideAllContent();
 });
 function startPreprocessing() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
+    
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://104.197.128.156:8000/process/${fileId}`, {
         method: 'GET',
@@ -240,10 +243,12 @@ function startPreprocessing() {
         const wordcloud = document.getElementById('wordcloud');
         console.log(data['wordcloud_base64']);
         wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('File data Upload tidak ditemukan');
+        loading.style.display = 'none';
     });
 }
 
