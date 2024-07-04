@@ -254,8 +254,6 @@ function startPreprocessing() {
 
 
 function deletelines() {
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://34.66.119.246:8000/procesblankdata/${fileId}`, {
@@ -296,7 +294,6 @@ function deletelines() {
             console.error('Number of rows removed is not defined');
         }
     })
-    loading.style.display = 'none';
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
