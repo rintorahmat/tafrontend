@@ -35,6 +35,9 @@ function triggerFileInput() {
 }
 
 function handleFileUpload(event) {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
+    
     const file = event.target.files[0];
     if (!file) {
         alert('Silakan pilih file yang ingin diunggah.');
@@ -68,6 +71,7 @@ function handleFileUpload(event) {
                 }
             }
         })
+        loading.style.display = 'none';
         .catch((error) => {
             console.error('Error:', error);
             alert('Error uploading file');
