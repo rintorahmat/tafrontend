@@ -63,8 +63,6 @@
                     </select>
                 </div>
                 <div class="button-container">
-                    <!-- <button onclick="startPreprocessing()">
-                        <span class="iconify" data-icon="feather:play" data-inline="false"></span> Mulai Preprocessing</button> -->
                     <button onclick="splitData()">
                         <span class="iconify" data-icon="feather:scissors" data-inline="false"></span> Split Data</button>
                     <button onclick="downloadData()">
@@ -87,6 +85,11 @@
                     <div class="datapre-container">
                         <table class="datapre"></table>
                     </div>
+                    <div id="loading" class="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Loading...</p>
+                    </div>
+
                 </div>
             </div>         
 
