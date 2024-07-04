@@ -358,6 +358,8 @@ function translated() {
 }
 
 function spacing() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/spacing/${fileId}`, {
@@ -370,6 +372,7 @@ function spacing() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -390,14 +393,18 @@ function spacing() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function deleteemot() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/delemot/${fileId}`, {
@@ -410,6 +417,7 @@ function deleteemot() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -430,14 +438,18 @@ function deleteemot() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function removepunc() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/hapustandabaca/${fileId}`, {
@@ -450,6 +462,7 @@ function removepunc() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -469,15 +482,19 @@ function removepunc() {
             }
         } else {
             console.error('Data is empty or undefined');
+            loading.style.display = 'none';
         }
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function lowercasing() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/lowercasing/${fileId}`, {
@@ -490,6 +507,7 @@ function lowercasing() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -510,13 +528,17 @@ function lowercasing() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 function tokenizing() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/tokenize/${fileId}`, {
@@ -529,6 +551,7 @@ function tokenizing() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -549,14 +572,18 @@ function tokenizing() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function stemmed() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/stemmed/${fileId}`, {
@@ -569,6 +596,7 @@ function stemmed() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -589,14 +617,18 @@ function stemmed() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function stopword() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     fetch(`http://34.66.119.246:8000/stopword/${fileId}`, {
@@ -609,6 +641,7 @@ function stopword() {
         if (data.error) {
             console.error('Error from server:', data.error);
             alert('Error from server: ' + data.error);
+            loading.style.display = 'none';
             return;
         }
 
@@ -629,14 +662,18 @@ function stopword() {
         } else {
             console.error('Data is empty or undefined');
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('Error');
+        loading.style.display = 'none';
     });
 }
 
 function sentimenanalis() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
     fetch(`http://34.66.119.246:8000/sentimenanalis/${fileId}`, {
@@ -692,14 +729,18 @@ function sentimenanalis() {
         const wordcloud = document.getElementById('wordcloud');
         console.log(data['wordcloud_base64']);
         wordcloud.setAttribute('src', `data:image/png;base64,${data['wordcloud_base64']}`);
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Stemmed tidak ditemukan');
-    });f
+        loading.style.display = 'none';
+    });
 }
 
 function splitData() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
@@ -750,10 +791,12 @@ function splitData() {
         alert(`Data split complete. Training data: ${trainDataCount}, Testing data: ${testDataCount}`);
 
         showTrainingData();
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
         alert('File data hasil Preprocessing tidak ditemukan');
+        loading.style.display = 'none';
     });
 }
 function startklasification() {
@@ -856,10 +899,13 @@ function startklasification() {
 }
 
 function downloadData() {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'flex';
     
     const processedFileId = localStorage.getItem('FILE_ID_HASILPRE');
     if (!processedFileId) {
         alert("Data belum diproses. Silakan lakukan preprocessing terlebih dahulu.");
+        loading.style.display = 'none';
         return;
     }
 
@@ -876,10 +922,12 @@ function downloadData() {
             } else {
                 alert("File tidak ditemukan. Silakan lakukan preprocessing terlebih dahulu.");
             }
+            loading.style.display = 'none';
         })
         .catch(error => {
             console.error('Error:', error);
             alert('Terjadi kesalahan saat mendownload file');
+            loading.style.display = 'none';
         });
 }
 
