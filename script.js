@@ -40,8 +40,6 @@ function handleFileUpload(event) {
         alert('Silakan pilih file yang ingin diunggah.');
         return;
     }
-    const loading = document.getElementById('loading');
-    loading.style.display = 'flex';
     const formData = new FormData();
     formData.append('file', file);
     fetch('http://34.66.119.246:8000/upload', {
@@ -70,7 +68,6 @@ function handleFileUpload(event) {
                 }
             }
         })
-        loading.style.display = 'none';
         .catch((error) => {
             console.error('Error:', error);
             alert('Error uploading file');
