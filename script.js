@@ -47,7 +47,7 @@ function handleFileUpload(event) {
     }
     const formData = new FormData();
     formData.append('file', file);
-    fetch('http://34.67.144.138:8000/upload', {
+    fetch('http://34.41.37.224:8000/upload', {
         method: 'POST',
         body: formData,
     })
@@ -181,7 +181,7 @@ function startPreprocessing() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.67.144.138:8000/process/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/process/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -265,7 +265,7 @@ function deletelines() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.67.144.138:8000/procesblankdata/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/procesblankdata/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -317,7 +317,7 @@ function translated() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/translated/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/translated/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -362,7 +362,7 @@ function spacing() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/spacing/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/spacing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -407,7 +407,7 @@ function deleteemot() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/delemot/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/delemot/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -452,7 +452,7 @@ function removepunc() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/hapustandabaca/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/hapustandabaca/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -497,7 +497,7 @@ function lowercasing() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/lowercasing/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/lowercasing/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -541,7 +541,7 @@ function tokenizing() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/tokenize/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/tokenize/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -586,7 +586,7 @@ function stemmed() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/stemmed/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/stemmed/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -631,7 +631,7 @@ function stopword() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
-    fetch(`http://34.67.144.138:8000/stopword/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/stopword/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -676,7 +676,7 @@ function sentimenanalis() {
     loading.style.display = 'flex';
     
     const fileId = localStorage.getItem('FILE_ID');
-    fetch(`http://34.67.144.138:8000/sentimenanalis/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/sentimenanalis/${fileId}`, {
         method: 'GET',
     })
     .then(response => response.json())
@@ -744,7 +744,7 @@ function splitData() {
     
     const fileId = localStorage.getItem('FILE_ID_HASILPRE');
     const splitRatio = document.getElementById("splitRatio").value;
-    fetch(`http://34.67.144.138:8000/splitdata/${fileId}`, {
+    fetch(`http://34.41.37.224:8000/splitdata/${fileId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -805,7 +805,7 @@ function startklasification() {
 
     const testSize = parseFloat(splitRatio);
 
-    fetch(`http://34.67.144.138:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
+    fetch(`http://34.41.37.224:8000/klasifikasi/?file_id=${hasilpreId}&test_size=${testSize}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -909,7 +909,7 @@ function downloadData() {
         return;
     }
 
-    fetch(`http://34.67.144.138:8000/download_preprocessed/${processedFileId}`)
+    fetch(`http://34.41.37.224:8000/download_preprocessed/${processedFileId}`)
         .then(response => {
             if (response.ok) {
                 const link = document.createElement('a');
@@ -931,6 +931,6 @@ function downloadData() {
         });
 }
 
-fetch("http://34.67.144.138:8000")
+fetch("http://34.41.37.224:8000")
     .then((respon) => respon.json())
     .then((data) => { console.log(data) })
