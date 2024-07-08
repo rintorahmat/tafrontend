@@ -687,9 +687,7 @@ function sentimenanalis() {
         datapre.innerHTML = `
             <tr>
                 <th>Stemmed</th>
-                <th>NilaiAktual</th>
                 <th>SentimentLabel</th>
-                <th>Polarity</th>
             </tr>
         `;
         if (data["data"]) {
@@ -697,9 +695,7 @@ function sentimenanalis() {
                 datapre.innerHTML += `
                     <tr>
                         <td>${data["data"][index]["Stemmed"]}</td>
-                        <td>${data["data"][index]["NilaiAktual"]}</td>
                         <td>${data["data"][index]["SentimentLabel"]}</td>
-                        <td>${data["data"][index]["Polarity"]}</td>
                     </tr>
                 `;
             }
