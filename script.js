@@ -482,8 +482,8 @@ function removepunc() {
             }
         } else {
             console.error('Data is empty or undefined');
-            loading.style.display = 'none';
         }
+        loading.style.display = 'none';
     })
     .catch((error) => {
         console.error('Error:', error);
