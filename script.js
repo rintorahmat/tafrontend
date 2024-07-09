@@ -194,7 +194,7 @@ function startPreprocessing() {
                 <th>content</th>
                 <th>Translated</th>
                 <th>Space</th>
-                <th?LowerCasing</th>
+                <th>LowerCasing</th>
                 <th>DeleteEmotikon</th>
                 <th>HapusTandaBaca</th>
                 <th>Tokenizing</th>
