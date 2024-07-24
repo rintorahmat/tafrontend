@@ -164,12 +164,12 @@ function updateTestingData() {
     const trainingValue = parseFloat(trainingInput.value);
         
     if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
-        const testingValue = 100 - trainingValue; // Menampilkan dua desimal
+        const testingValue = 100 - trainingValue;
+        testingInput.value = Math.floor(testingValue);
     } else {
-        testingInput.value = ''; // Kosongkan jika input tidak valid
+        testingInput.value = '';
     }
 }
- // Set nilai testing awal saat memuat halaman
 updateTestingData();
 
 function updateDataDisplay() {
