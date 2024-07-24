@@ -155,40 +155,26 @@ function displayDataInTable(fileContent) {
     const fileDataTable = document.getElementById('fileDataTable');
     fileDataTable.innerHTML = '';
     fileDataTable.appendChild(table);
-
-    updateDataDisplay();
 }
+
 function updateTestingData() {
     const trainingInput = document.getElementById('trainingData');
     const testingInput = document.getElementById('testingData');
+    const splitRatioInput = document.getElementById('splitRatio');
     const trainingValue = parseFloat(trainingInput.value);
-        
+    
     if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
         const testingValue = 100 - trainingValue;
-        testingInput.value = Math.floor(testingValue);
+        const splitRatio = testingValue / 100;
+        testingInput.value = testingValue;
+        splitRatioInput.value = splitRatio.toFixed(2);
     } else {
         testingInput.value = '';
+        splitRatioInput.value = '';
     }
 }
 updateTestingData();
 
-function updateDataDisplay() {
-    const fileDataTable = document.getElementById('fileDataTable');
-    const rows = fileDataTable.querySelectorAll('tr');
-    const limit = parseInt(document.getElementById('dataAmountSelect').value);
-
-    rows.forEach((row, index) => {
-        if (index === 0 || index <= limit) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    hideAllContent();
-});
 function startPreprocessing() {
     const loading = document.getElementById('loading');
     loading.style.display = 'flex';
