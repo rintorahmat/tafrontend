@@ -77,12 +77,26 @@ button {
 .button-container button, #preprocessingContent select {
     margin-bottom: 10px; /* Menambahkan jarak bawah antara tombol dan select */
 }
-.input-container {
-    margin: 10px 0;
+.split-data-container {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
-.input-container label, .input-container input {
+.split-data-container label {
+    min-width: 200px;
     margin-right: 10px;
 }
+.split-data-container input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+}
+.readonly-input {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    pointer-events: none;
+}
+
 #preprocessingContent {
     display: none;
 }
