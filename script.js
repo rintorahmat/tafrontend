@@ -34,21 +34,6 @@ function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
 
-const trainingInput = document.getElementById('trainingData');
-        const testingInput = document.getElementById('testingData');
-
-        function updateTestingData() {
-            const trainingValue = parseInt(trainingInput.value);
-            if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
-                testingInput.value = 100 - trainingValue;
-            } else {
-                testingInput.value = '';
-            }
-        }
-
-        trainingInput.addEventListener('input', updateTestingData);
-        updateTestingData();
-
 function handleFileUpload(event) {
     const loading = document.getElementById('loading');
     loading.style.display = 'flex';
@@ -173,6 +158,20 @@ function displayDataInTable(fileContent) {
 
     updateDataDisplay();
 }
+function updateTestingData() {
+    const trainingInput = document.getElementById('trainingData');
+    const testingInput = document.getElementById('testingData');
+    const trainingValue = parseFloat(trainingInput.value);
+        
+    if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
+        const testingValue = 100 - trainingValue;
+        testingInput.value = testingValue.toFixed(2); // Menampilkan dua desimal
+    } else {
+        testingInput.value = ''; // Kosongkan jika input tidak valid
+    }
+}
+ // Set nilai testing awal saat memuat halaman
+updateTestingData();
 
 function updateDataDisplay() {
     const fileDataTable = document.getElementById('fileDataTable');
