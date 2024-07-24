@@ -54,14 +54,12 @@
 
             <div id="preprocessingContent" style="display: none;">
                 <div class="split-data-container">
-                    <label for="splitRatio">Pilih Rasio Pembagian Data:</label>
-                    <select id="splitRatio">
-                        <option value="0.2">80:20</option>
-                        <option value="0.1">90:10</option>
-                        <option value="0.3">70:30</option>
-                        <option value="0.4">60:40</option>
-                        <option value="0.5">50:50</option>
-                    </select>
+                    <label for="trainingData">Masukkan Persentase Data Training (0-100):</label>
+                    <input type="number" id="trainingData" min="0" max="100" value="80">
+                </div>
+                <div class="split-data-container">
+                    <label for="testingData">Persentase Data Testing:</label>
+                    <input type="number" id="testingData" readonly>
                 </div>
                 <div class="button-container">
                     <button onclick="splitData()">
