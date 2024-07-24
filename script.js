@@ -34,6 +34,21 @@ function triggerFileInput() {
     const uploadbutton = document.getElementById('importDataInput').click();
 }
 
+const trainingInput = document.getElementById('trainingData');
+        const testingInput = document.getElementById('testingData');
+
+        function updateTestingData() {
+            const trainingValue = parseInt(trainingInput.value);
+            if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
+                testingInput.value = 100 - trainingValue;
+            } else {
+                testingInput.value = '';
+            }
+        }
+
+        trainingInput.addEventListener('input', updateTestingData);
+        updateTestingData();
+
 function handleFileUpload(event) {
     const loading = document.getElementById('loading');
     loading.style.display = 'flex';
