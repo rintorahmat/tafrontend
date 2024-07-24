@@ -164,8 +164,7 @@ function updateTestingData() {
     const trainingValue = parseFloat(trainingInput.value);
         
     if (!isNaN(trainingValue) && trainingValue >= 0 && trainingValue <= 100) {
-        const testingValue = 100 - trainingValue;
-        testingInput.value = testingValue.toFixed(2); // Menampilkan dua desimal
+        const testingValue = 100 - trainingValue; // Menampilkan dua desimal
     } else {
         testingInput.value = ''; // Kosongkan jika input tidak valid
     }
